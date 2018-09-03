@@ -72,12 +72,12 @@ func mainHandler(inner http.Handler) http.Handler {
 }
 
 func goGet(path string) (string, string, error) {
-	fmt.Fprintf(os.Stdout, "goproxy: download %s\n", path)
 	cmd := exec.Command("go", "get", "-d", path)
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 	err := cmd.Run()
+	fmt.Fprintf(os.Stdout, "goproxy: download %s stdout: %s stderr: %s\n", path, stdout, stderr)
 	return string(stdout.Bytes()), string(stderr.Bytes()), err
 }
